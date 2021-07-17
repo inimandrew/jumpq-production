@@ -434,7 +434,11 @@ class LoadController extends Controller
     {
         try {
             $branch = Stores_Branch::where('unique_id',$branch_id)->firstOrFail();
-            return response()->json(['data' => compact('branch'),'message' => 'Branch Exist'], 200);
+                if($branch->status != '1'){
+                    return response()->json(['errors' => ['Store Branch has not been Activated. Please Activate to use this Endpoint']],401);
+                }else{
+                    return response()->json(['data' => compact('branch'),'message' => 'Branch Exist'], 200);
+                }
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
             return response()->json(['errors' => ['Invalid Branch Id']], 404);
         }
