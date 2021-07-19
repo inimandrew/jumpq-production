@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Middleware;
-use Auth;
+
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class User
@@ -15,9 +16,9 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if (empty(Auth::guard('user')->user()) | empty(Auth::guard('user')->user()->api_token)){
+        if (empty(Auth::guard('user')->user()) | empty(Auth::guard('user')->user()->api_token)) {
             return redirect()->route('sign_in')->withErrors(['error' => "You're not Authorised to access this page. Log in "]);
-             }
+        }
         return $next($request);
     }
 }

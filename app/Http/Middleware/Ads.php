@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-use Auth;
+
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Session;
+
 class Ads
 {
     /**
@@ -15,8 +17,8 @@ class Ads
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::guard('ads')->check()){
-            Session::put('red',1);
+        if (!Auth::guard('ads')->check()) {
+            Session::put('red', 1);
             return redirect()->route('advert-placement')->withErrors(['message' => 'Unauthorised! Please Login']);
         }
         return $next($request);

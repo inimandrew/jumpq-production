@@ -7,7 +7,7 @@ use Validator;
 use Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\FileController;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Configurations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -230,11 +230,11 @@ class LoadController extends Controller
 
             $branch = $this->branch->getBranchByUniqueId($data['branch']);
             $product = $this->product->getProductByCode($data['barcode'], $branch->id);
-                if(!empty($product)){
-                    return response()->json($product, 200);
-                }else{
-                    return response()->json(['errors' => ['Invalid Barcode for this Branch']], 404);
-                }
+            if (!empty($product)) {
+                return response()->json($product, 200);
+            } else {
+                return response()->json(['errors' => ['Invalid Barcode for this Branch']], 404);
+            }
         }
     }
 
@@ -433,18 +433,19 @@ class LoadController extends Controller
     public function checkBranch(Request $request, $branch_id)
     {
         try {
-            $branch = Stores_Branch::where('unique_id',$branch_id)->firstOrFail();
-                if($branch->status != '1'){
-                    return response()->json(['errors' => ['Store Branch has not been Activated. Please Activate to use this Endpoint']],401);
-                }else{
-                    return response()->json(['data' => compact('branch'),'message' => 'Branch Exist'], 200);
-                }
+            $branch = Stores_Branch::where('unique_id', $branch_id)->firstOrFail();
+            if ($branch->status != '1') {
+                return response()->json(['errors' => ['Store Branch has not been Activated. Please Activate to use this Endpoint']], 401);
+            } else {
+                return response()->json(['data' => compact('branch'), 'message' => 'Branch Exist'], 200);
+            }
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
             return response()->json(['errors' => ['Invalid Branch Id']], 404);
         }
     }
 
-    public function editCart(Request $request){
+    public function editCart(Request $request)
+    {
         $data = $request->all();
 
         $rules = [
@@ -479,7 +480,7 @@ class LoadController extends Controller
                     $data['price'] = $product->unit_price;
                     $data['cost_price'] = $product->cost_price;
 
-                    $add_to_cart_success = $this->other->updateCart($user,$data);
+                    $add_to_cart_success = $this->other->updateCart($user, $data);
                     if ($add_to_cart_success) {
                         return response()->json(['message' => ['Cart updated']], 200);
                     } else {

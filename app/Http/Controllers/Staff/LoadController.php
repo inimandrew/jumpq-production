@@ -244,7 +244,7 @@ class LoadController extends Controller
             'products.*.barcode' => ['required', 'string'],
             'products.*.description' => 'nullable',
             'products.*.quantity' => 'required|numeric',
-            'products.*.storeProductId' => 'nullable|string',
+            'products.*.storeProductId' => 'required|string',
             'products.*.thumbnail' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:502', Rule::dimensions()->maxWidth(100)->ratio(1 / 1)->minWidth(100)],
             'products.*.medium' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:1024', Rule::dimensions()->maxWidth(300)->ratio(2 / 3)->minWidth(300)],
             'products.*.images.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048', Rule::dimensions()->maxWidth(800)->minWidth(800)->ratio(1)],
@@ -256,8 +256,8 @@ class LoadController extends Controller
         } else {
 
             foreach ($data['products'] as $product) {
-                $barcode_check = $this->product->getProductCountByBarcode($product['barcode'], $branch);
-                if ($barcode_check == 0) {
+                $barcode_check = $this->product->getProductByUniqueId($product['storeProductId'], $branch);
+                if (!$barcode_check) {
                     $single = array(
                         'name' => ucfirst($product['name']),
                         'product_type' => '1',
@@ -267,7 +267,7 @@ class LoadController extends Controller
                         'quantity' => $product['quantity'],
                         'store_branch_id' => $branch,
                         'description' => !empty($product['description']) ? $product['description'] : '',
-                        'uniqueId' => !empty($product['storeProductId']) ? $product['storeProductId'] : NULL,
+                        'uniqueId' => $product['storeProductId'],
                     );
 
 
@@ -279,7 +279,7 @@ class LoadController extends Controller
                         }
                     }
                 } else {
-                    $main_product = $this->product->getProductModelByBarcode($product['barcode'], $branch);
+                    $main_product = $barcode_check;
                     $where = ['id' => $main_product->id];
                     $update_data = [
                         'name' => ucfirst($product['name']),
@@ -288,7 +288,7 @@ class LoadController extends Controller
                         'cost_price' => $product['cost_price'],
                         'quantity' => $product['quantity'],
                         'description' => !empty($product['description']) ? $product['description'] : NULL,
-                        'uniqueId' => !empty($product['quickbookId']) ? $product['quickbookId'] : NULL
+                        'uniqueId' => !empty($product['storeProductId']) ? $product['storeProductId'] : NULL
 
                     ];
 
@@ -304,11 +304,11 @@ class LoadController extends Controller
     {
         $branch = $this->staff->getBranchId($request->header('api_token'));
         $products = $this->product->getProductCountByBarcode($barcode, $branch);
-        
-        if($products === 0){
-            return response()->json(["message" => "Barcode doesn't exist"]);            
-        }else{
-            return response()->json(["errors" => ["Barcode Already Belongs to a Product"]],400);
+
+        if ($products === 0) {
+            return response()->json(["message" => "Barcode doesn't exist"]);
+        } else {
+            return response()->json(["errors" => ["Barcode Already Belongs to a Product"]], 400);
         }
     }
 
@@ -468,7 +468,7 @@ class LoadController extends Controller
                     'cost_price' => $value['cost_price'],
                     'quantity' => $value['quantity'],
                     'reorder_level' => $value['reorder']
-    
+
                 ];
             }
 
@@ -635,7 +635,7 @@ class LoadController extends Controller
             $products =  $this->product->getProductByBarcode($barcode, $branch);
             $isRfid = false;
             foreach ($products as $key => $value) {
-                if($value->product_type == '0'){
+                if ($value->product_type == '0') {
                     $isRfid = true;
                 }
             }

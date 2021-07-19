@@ -196,6 +196,12 @@ class ProductRepository implements ProductInterface
         return $product;
     }
 
+    public function getProductByUniqueId($uniqueCode, $branch)
+    {
+        $product = Products::where('store_branch_id', $branch)->where('uniqueId', $uniqueCode)->first();
+        return $product;
+    }
+
     public function reduceQuantity($product, $quantity)
     {
         if (($product->quantity > 0) && ($product->quantity >= $quantity)) {
@@ -241,13 +247,15 @@ class ProductRepository implements ProductInterface
         return $product;
     }
 
-    public function getBranchId($product_id){
+    public function getBranchId($product_id)
+    {
         $product = Products::find($product_id);
         return $product->store_branch_id;
     }
 
-    public function getProductByCategory($category_id,$branch){
-        $products = Products::where('store_branch_id',$branch)->where('category_id',$category_id)->paginate(10);
+    public function getProductByCategory($category_id, $branch)
+    {
+        $products = Products::where('store_branch_id', $branch)->where('category_id', $category_id)->paginate(10);
         return new ProductCollection($products);
     }
 }

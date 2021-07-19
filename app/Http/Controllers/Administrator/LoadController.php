@@ -12,7 +12,7 @@ use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Validator;
 use Hash;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Single\StoreController;
 use App\Models\Accounts;
 use App\Models\Campaigns;
@@ -347,8 +347,9 @@ class LoadController extends Controller
         return redirect()->back()->withErrors(['message' => 'Campaign Status Changed Successfully']);
     }
 
-    public function editBranch(Request $request){
-        $data = $request->only(['itemMax','branch']);
+    public function editBranch(Request $request)
+    {
+        $data = $request->only(['itemMax', 'branch']);
         $rules = [
             'itemMax' => 'required|numeric|min:1',
             'branch' => 'required|numeric|exists:stores_branches,id',
@@ -357,11 +358,10 @@ class LoadController extends Controller
         if ($validation->fails()) {
             Session::put('red', 1);
             return redirect()->back()->withErrors($validation->errors());
-        }else{
+        } else {
             $this->branch->update(["itemMax" => $data["itemMax"]], $data["branch"]);
             Session::put('green', 1);
             return redirect()->back()->withErrors(['message' => "Branch Maximum Items for Customers Updated"]);
-
         }
     }
 }

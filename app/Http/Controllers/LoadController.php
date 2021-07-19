@@ -11,7 +11,7 @@ use App\Repositories\Others\OtherRepository;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Session;
 use Validator;
@@ -222,7 +222,7 @@ class LoadController extends Controller
                 return redirect()->back()->withErrors($validation->errors())->withInput();
             } else {
                 $path = $request->file('asset')->store('public/ads-assets');
-                $exploded_path = explode('/',$path);
+                $exploded_path = explode('/', $path);
                 $main_path = $exploded_path[count($exploded_path) - 1];
                 $data['asset_url'] = $main_path;
                 unset($data['asset']);
@@ -235,8 +235,8 @@ class LoadController extends Controller
 
     public function getNextAd(Request $request)
     {
-        $campaign = CampaignCount::whereDate('date', '=', Carbon::today()->toDateString())->orderBy('count')->whereHas('campaign', function($query){
-            $query->where('status','1');
+        $campaign = CampaignCount::whereDate('date', '=', Carbon::today()->toDateString())->orderBy('count')->whereHas('campaign', function ($query) {
+            $query->where('status', '1');
         })->first();
 
         if ($campaign) {
@@ -247,12 +247,12 @@ class LoadController extends Controller
                 'description' => $campaign->campaign->description,
                 'url_redirect' => $campaign->campaign->url_link,
                 'asset_type' => $campaign->campaign->asset->type,
-                'asset_url' => url('/').'/public/storage/ads-assets/' . $campaign->campaign->asset_url,
+                'asset_url' => url('/') . '/public/storage/ads-assets/' . $campaign->campaign->asset_url,
             ];
             $campaign->increment('count');
-                if($campaign->campaign->plan->daily_counts == $campaign->count){
-                    Campaigns::where('id',$campaign->campaign->id)->update(['status'=>'0']);
-                }
+            if ($campaign->campaign->plan->daily_counts == $campaign->count) {
+                Campaigns::where('id', $campaign->campaign->id)->update(['status' => '0']);
+            }
             return response()->json(compact('ad'), 200);
         } else {
             return response()->json(['message' => 'No Advert to Display at this time'], 204);
@@ -261,7 +261,7 @@ class LoadController extends Controller
 
     public function getFile(Request $request, $image)
     {
-        $campaign = Campaigns::where('asset_url',$image)->first();
+        $campaign = Campaigns::where('asset_url', $image)->first();
         return storage_path('app/public/ads-assets/' . $campaign->asset_url);
     }
 }

@@ -219,9 +219,9 @@ class PageController extends Controller
         $data['currencies'] = Currency::all();
         $data['banks'] = Banks::all();
         $payment_array = [];
-        if(Auth::guard('staff')->user()->branch->sub_account){
-            $data['paystack'] = SubAccounts::where('store_branch_id',Auth::guard('staff')->user()->store_branch_id)->where('payment_type_id','3')->first();
-            $data['flutter'] = SubAccounts::where('store_branch_id',Auth::guard('staff')->user()->store_branch_id)->where('payment_type_id','4')->first();
+        if (Auth::guard('staff')->user()->branch->sub_account) {
+            $data['paystack'] = SubAccounts::where('store_branch_id', Auth::guard('staff')->user()->store_branch_id)->where('payment_type_id', '3')->first();
+            $data['flutter'] = SubAccounts::where('store_branch_id', Auth::guard('staff')->user()->store_branch_id)->where('payment_type_id', '4')->first();
         }
 
         if (empty($data['paystack'])) {
