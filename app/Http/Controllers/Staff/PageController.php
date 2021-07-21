@@ -150,6 +150,13 @@ class PageController extends Controller
         $title = 'New Product';
         return $this->templatePages('staff.new_products', $title);
     }
+    
+    public function deleteProducts(Request $request){
+        $branch = Auth::guard('staff')->user()->store_branch_id;
+        $this->product->deleteProductsByBranch($branch);
+        Session::put('green',1);
+        return redirect()->back()->withErrors(['message' => 'Products Deleted']);
+    }
 
     public function products(Request $request)
     {

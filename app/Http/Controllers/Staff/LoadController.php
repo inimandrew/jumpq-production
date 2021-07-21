@@ -238,8 +238,8 @@ class LoadController extends Controller
         $rules = [
             'products' => ['required', 'array'],
             'products.*.name' => ['required', 'string'],
-            'products.*.price' => 'required|min:1|numeric|gte:products.*.cost_price',
-            'products.*.cost_price' => ['required', 'numeric', 'min:1', 'lte:products.*.price'],
+            'products.*.price' => 'required|min:1|numeric|min:0',
+            'products.*.cost_price' => ['required', 'numeric', 'min:0'],
             'products.*.category_id' => 'nullable|exists:categories,id',
             'products.*.barcode' => ['required', 'string'],
             'products.*.description' => 'nullable',

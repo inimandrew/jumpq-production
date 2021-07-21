@@ -9,7 +9,7 @@ class Products extends Model
     protected $table = "products";
 
     protected $fillable = [
-        'store_branch_id', 'category_id', 'name', 'unit_price', 'description','product_type','quantity','cost_price','reorder_level','uniqueId'
+        'store_branch_id', 'category_id', 'name', 'unit_price', 'description', 'product_type', 'quantity', 'cost_price', 'reorder_level', 'uniqueId'
     ];
 
     protected $appends = ['category_name'];
@@ -22,6 +22,11 @@ class Products extends Model
     public function product_images()
     {
         return $this->hasMany(Product_Images::class, 'product_id', 'id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, "product_id", "id");
     }
 
     public function payments()
@@ -37,20 +42,21 @@ class Products extends Model
     public function getCategoryNameAttribute()
     {
 
-        if($this->category){
+        if ($this->category) {
             $name = $this->category->name;
-        }else{
+        } else {
             $name = 'Uncategorized';
         }
         return $name;
     }
 
-    public function branch(){
-        return $this->belongsTo(Stores_Branch::class,'store_branch_id','id');
+    public function branch()
+    {
+        return $this->belongsTo(Stores_Branch::class, 'store_branch_id', 'id');
     }
 
-    public function barcode(){
-        return $this->hasOne(Barcode::class,'product_id','id');
+    public function barcode()
+    {
+        return $this->hasOne(Barcode::class, 'product_id', 'id');
     }
-
 }

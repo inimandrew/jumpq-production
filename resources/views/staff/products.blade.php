@@ -1,5 +1,6 @@
-<link href="{{url('assets/administrator/plugins/bower_components/footable/css/footable.core.css')}}" rel="stylesheet">
-<link href="{{url('assets/administrator/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}"
+<link href="{{ url('assets/administrator/plugins/bower_components/footable/css/footable.core.css') }}" rel="stylesheet">
+<link
+    href="{{ url('assets/administrator/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}"
     rel="stylesheet" type="text/css" />
 
 <div class="row">
@@ -14,9 +15,19 @@
                     <input type="text" class="form-control" name="end">
                 </div>
                 <button style="margin-top:20px;margin-bottom:20px;" id="date_picker"
-                    class="btn btn-primary">Submit</button>
+                    class="btn btn-primary px-4">Submit</button>
             </div>
-            <div class="scrollable">
+            <div>
+                <div class="block float-right">
+                    <input type="text" placeholder="Search for Product" id="searchValue" class="form-control">
+
+                    <button style="margin-top:20px;margin-bottom:20px;" type="button" id="search"
+                        class="btn btn-info">Search</button>
+                </div>
+
+            </div>
+
+            <div class="scrollable block">
                 <div class="table-responsive">
                     <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list color-table dark-table"
                         data-page-size="10">
@@ -38,9 +49,12 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <a href="{{route('product_page')}}" class="btn btn-info btn-rounded">Add New
+                                    <a href="{{ route('product_page') }}" class="btn btn-info btn-rounded">Add New
                                         Product</a>
-                                    <a href="{{route('download_report')}}" class="btn btn-primary btn-rounded">Download Stock Availabilty Report</a>
+                                    <a href="{{ route('deleteProducts') }}" class="btn btn-danger btn-rounded">Delete
+                                        Products</a>
+                                    <a href="{{ route('download_report') }}"
+                                        class="btn btn-primary btn-rounded">Download Stock Availabilty Report</a>
                                 </td>
 
 
@@ -79,13 +93,15 @@
 
 
 @section('other_scripts')
-<script src="{{url('assets/administrator/js/staff/products.js')}}"></script>
-<script src="{{url('assets/administrator/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}">
-</script>
+<script src="{{ url('assets/administrator/js/staff/products.js') }}"></script>
+<script
+    src="{{ url('assets/administrator/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}">
+    </script>
 <script>
     jQuery('#date-range').datepicker({
         toggleActive: true,
         format: 'yyyy-mm-dd',
     });
+
 </script>
 @endsection

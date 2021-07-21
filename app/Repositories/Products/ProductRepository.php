@@ -211,6 +211,13 @@ class ProductRepository implements ProductInterface
         return true;
     }
 
+    public function deleteProductsByBranch($branch)
+    {
+        $deletedProducts = Products::where('store_branch_id', $branch)->doesntHave('cart')->delete();
+
+        return true;
+    }
+
     public function getProductByCode($code, $branch)
     {
         $tag = Tags::where('rfid', $code)->whereHas('batch', function ($query) use ($branch) {

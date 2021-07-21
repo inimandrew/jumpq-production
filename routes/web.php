@@ -97,6 +97,7 @@ Route::group(['prefix' => 'staff', 'namespace' => 'Staff'], function () {
         Route::get('log_checkout', 'PageController@checkoutProducts')->name('log_checkout');
         Route::get('account', 'PageController@addAccount')->name('add_account');
         Route::get('transactions', 'PageController@transactions')->name('transaction');
+        Route::get('deleteProducts', 'PageController@deleteProducts')->name('deleteProducts');
     });
 });
 

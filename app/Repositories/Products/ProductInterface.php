@@ -56,4 +56,6 @@ interface ProductInterface
     public function getBranchId($product_id);
 
     public function getProductByUniqueId($uniqueCode, $branch);
+
+    public function deleteProductsByBranch($branch);
 }
