@@ -1,10 +1,14 @@
 $(document).ready(function () {
-    'use strict';
+    "use strict";
 
     $("#submit").click(function (e) {
         e.preventDefault();
-        $('#submit').html('<img src=' + base_url + '/assets/general_assets/ajax-loader.gif />&nbsp; Submitting ').prop('disabled', true);
-        $("#register-user :input").prop('disabled', true);
+        $("#submit")
+            .html(
+                `<img class='mx-auto' src='${base_url}/assets/general_assets/ajax-loader.gif'/>`
+            )
+            .prop("disabled", true);
+        $("#register-user :input").prop("disabled", true);
 
         var token = $("input[name='_token']").val();
         var firstname = $("input[name='firstname']").val();
@@ -13,11 +17,13 @@ $(document).ready(function () {
         var email = $("input[name='email']").val();
         var phone = $("input[name='phone']").val();
         var password = $("input[name='password']").val();
-        var password_confirmation = $("input[name='password_confirmation']").val();
+        var password_confirmation = $(
+            "input[name='password_confirmation']"
+        ).val();
 
         $.ajax({
             url: base_url + "/api/user/register",
-            type: 'POST',
+            type: "POST",
             dataType: "json",
 
             data: {
@@ -28,28 +34,29 @@ $(document).ready(function () {
                 username: username,
                 password: password,
                 password_confirmation: password_confirmation,
-                _token: token
+                _token: token,
             },
             cache: false,
-
-        }).done(function (data) {
-            $('#submit').html('Submit').prop('disabled', false);
-            $("#register-user :input").prop('disabled', false);
-
-             if (data.message) {
-                $('#register-user').trigger('reset');
-                displayErrors(data.message, 'alert alert-success');
-            }
-
-        }).fail(function (data) {
-            $("#register-user :input").prop('disabled', false);
-            $('#submit').html('Submit').prop('disabled', false);
-            var errors = JSON.parse(data.responseText).errors;
-            displayErrors(errors, 'alert alert-danger');
-
-        });
-
-
+        })
+            .done(function (data) {
+                if (data.message) {
+                    $("#register-user").trigger("reset");
+                    displayErrors(
+                        data.message,
+                        "text-center py-2 bg-green-400 text-white font-semibold rounded-sm"
+                    );
+                }
+            })
+            .fail(function (data) {
+                var errors = JSON.parse(data.responseText).errors;
+                displayErrors(
+                    errors,
+                    "text-center py-2 bg-red-400 text-white font-semibold rounded-sm"
+                );
+            })
+            .complete(() => {
+                $("#register-user :input").prop("disabled", false);
+                $("#submit").html("Submit").prop("disabled", false);
+            });
     });
-
 });

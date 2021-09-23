@@ -25,6 +25,37 @@ class PageController extends Controller
         return view('main_site.index', ['stores' => $stores]);
     }
 
+    public function landing(Request $request)
+    {
+        return view('landing.home', ['title' => 'Home']);
+    }
+
+    public function contact(Request $request)
+    {
+        return view('landing.contact-us', ['title' => 'Contact Us']);
+    }
+
+    public function plans(Request $request)
+    {
+        $plans = Plans::where('status', '1')->get();
+        return view('landing.plans', ['title' => 'Plans', 'plans' => $plans]);
+    }
+
+    public function authLogin(Request $request)
+    {
+        return view('landing.auth.login', ['title' => 'Login']);
+    }
+
+    public function authRegister(Request $request)
+    {
+        return view('landing.auth.register', ['title' => 'Sign up']);
+    }
+
+    public function privacyPage(Request $request)
+    {
+        return view('landing.privacy', ['title' => 'Privacy']);
+    }
+
     public function aboutUs(Request $request)
     {
         $title = "About Us";
@@ -78,15 +109,15 @@ class PageController extends Controller
                 return redirect()->route('successful_payment', [$transaction_id]);
             } else {
                 if ($transaction->payment_type_id == '3') {
-                    $sub_account = SubAccounts::where('payment_type_id','3')->where('store_branch_id',$transaction->store_branch_id)->first();
+                    $sub_account = SubAccounts::where('payment_type_id', '3')->where('store_branch_id', $transaction->store_branch_id)->first();
                     $main_sub_account = $sub_account->sub_account_code;
                     $public_key = Configurations::where('type', 'paystack_public_key')->first();
-                    return view('user.paystack', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
+                    return view('landing.paystack', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
                 } else if ($transaction->payment_type_id == '4') {
-                    $sub_account = SubAccounts::where('payment_type_id','4')->where('store_branch_id',$transaction->store_branch_id)->first();
+                    $sub_account = SubAccounts::where('payment_type_id', '4')->where('store_branch_id', $transaction->store_branch_id)->first();
                     $main_sub_account = $sub_account->sub_account_code;
                     $public_key = Configurations::where('type', 'flutterwave_public_key')->first();
-                    return view('user.flutterwave', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
+                    return view('landing.flutterwave', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
                 }
             }
         } else {
@@ -99,7 +130,7 @@ class PageController extends Controller
         $title = 'Payment';
         $transaction = Cart_Payment::where('transaction_id', $transaction_id)->first();
         if ($transaction) {
-            return view('user.complete', ['title' => $title, 'transaction' =>  $transaction]);
+            return view('landing.complete', ['title' => $title, 'transaction' =>  $transaction]);
         } else {
             return redirect()->route('landing_page');
         }
@@ -114,7 +145,7 @@ class PageController extends Controller
     public function forgotPassword(Request $request)
     {
         $title = 'Forgot Password';
-        return view('main_site.forgot_password', ['title' => $title]);
+        return view('landing.auth.forgot-password', ['title' => $title]);
     }
 
     public function email()
@@ -128,31 +159,45 @@ class PageController extends Controller
         return view('main_site.ads', ['title' => $title]);
     }
 
+    public function advertLogin(Request $request)
+    {
+        $title = 'Place an Ad';
+        return view('landing.ads.auth.login', ['title' => $title]);
+    }
+
+    public function advertRegistration(Request $request)
+    {
+        $title = 'Place an Ad';
+        return view('landing.ads.auth.register', ['title' => $title]);
+    }
+
     public function pricing(Request $request)
     {
         $title = 'Pricing';
-        $plans = Plans::where('status','1')->get();
-        return view('main_site.pricing', ['title' => $title,'plans' => $plans]);
+        $plans = Plans::where('status', '1')->get();
+        return view('main_site.pricing', ['title' => $title, 'plans' => $plans]);
     }
 
     public function adsHome(Request $request)
     {
         $title = 'Ads';
-        $data['paystack'] = Configurations::where('type','paystack_public_key')->first();
-        $data['flutter'] = Configurations::where('type','flutterwave_public_key')->first();
-        return view('ads.home', ['title' => $title,'data' => $data]);
+        $data['paystack'] = Configurations::where('type', 'paystack_public_key')->first();
+        $data['flutter'] = Configurations::where('type', 'flutterwave_public_key')->first();
+        return view('ads.dashboard', ['title' => $title, 'data' => $data]);
     }
 
-    public function profile(Request $request){
+    public function profile(Request $request)
+    {
         $title = 'Profile';
-        return view('ads.profile', ['title' => $title]);
+        return view('landing.ads.profile', ['title' => $title]);
     }
 
-    public function createCampaign(Request $request){
+    public function createCampaign(Request $request)
+    {
         $title = 'Create Campaign';
-        $plans = Plans::where('status','1')->get();
-        $config = Configurations::where('type','service_charge')->first();
-        $payments = PaymentType::where('id','>','2')->get();
-        return view('ads.campaign', ['title' => $title,'plans' => $plans,'payment_types' => $payments,'config' => $config]);
+        $plans = Plans::where('status', '1')->get();
+        $config = Configurations::where('type', 'service_charge')->first();
+        $payments = PaymentType::where('id', '>', '2')->get();
+        return view('landing.ads.new-campaign', ['title' => $title, 'plans' => $plans, 'payment_types' => $payments, 'config' => $config]);
     }
 }

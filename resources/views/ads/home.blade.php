@@ -51,14 +51,12 @@
 
                         <div class="col-12 col-md-3 main">
                             <span class="block text-left">Approved Campaigns</span>
-                            <span
-                                class="block text-right">{{Auth::guard('ads')->user()->campaign()->where('approved','1')->count()}}</span>
+                            <span class="block text-right">{{Auth::guard('ads')->user()->campaign()->where('approved','1')->count()}}</span>
                         </div>
 
                         <div class="col-12 col-md-3 main">
                             <span class="block text-left">Rejected Campaigns</span>
-                            <span
-                                class="block text-right">{{Auth::guard('ads')->user()->campaign()->where('approved','2')->count()}}</span>
+                            <span class="block text-right">{{Auth::guard('ads')->user()->campaign()->where('approved','2')->count()}}</span>
                         </div>
                     </div>
                 </div>

@@ -1,31 +1,37 @@
-var base_url = $('meta[name="base_url"]').attr('content');
+var base_url = $('meta[name="base_url"]').attr("content");
 
-var api_token = $('meta[name="api_token"]').attr('content');
-function displayErrors(data, css_class,useScroll = true){
+var api_token = $('meta[name="api_token"]').attr("content");
+function displayErrors(data, css_class, useScroll = true) {
     $("#message").empty();
-    if(useScroll){
+    if (useScroll) {
         scrollToTop();
     }
 
-    jQuery.each(data, function(i, val) {
-        var error_block = document.createElement('div');
-        $(error_block).addClass(css_class).html('<span>'+val+'</span>').appendTo("#message");
+    jQuery.each(data, function (i, val) {
+        var error_block = document.createElement("div");
+        $(error_block)
+            .addClass(css_class)
+            .html("<span>" + val + "</span>")
+            .appendTo("#message");
     });
 
-    $('#message').fadeIn(1000).delay(5000).fadeOut(1000, function () {
-        $("#message").css('display','none');
-    });
+    $("#message")
+        .fadeIn(500)
+        .delay(6000)
+        .fadeOut(2000, function () {
+            $("#message").css("display", "none");
+        });
 }
 
 function scrollToTop() {
     $(window).scrollTop(0);
 }
 
-function unExpectedError(){
+function unExpectedError() {
     var fail_errors = {
-        'errors' : [
-            'An UnExpected Error Occured. Please Reload Page and try again.'
-        ]
+        errors: [
+            "An UnExpected Error Occured. Please Reload Page and try again.",
+        ],
     };
-    displayErrors(fail_errors,'alert alert-warning');
+    displayErrors(fail_errors, "alert alert-warning");
 }

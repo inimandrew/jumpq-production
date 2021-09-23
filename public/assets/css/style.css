@@ -1,0 +1,60 @@
+footer a {
+    display: block;
+}
+footer h1 {
+    color: black;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.bg-app {
+    background-color: #f05223;
+}
+
+.bg-app-transparent-shade {
+    background-color: #fefbfa;
+}
+
+.color-app {
+    color: #f05223;
+}
+
+.border-app {
+    border-color: #f05223;
+}
+
+.bg-app-transparent {
+    background-color: #fdf2ef;
+}
+
+.bg-app-transparent2 {
+    background-color: #fdebe6;
+}
+.bg-footer {
+    background-color: #fce9e5;
+}
+.rounded-big {
+    border-top-left-radius: 2.5rem;
+    border-bottom-left-radius: 2.5rem;
+}
+.newBg {
+    background-image: url("/assets/jump/imgs/36038688651_f8b9db8246_b.png");
+
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+}
+
+.activeLink {
+    color: #f05223;
+    font-weight: 800;
+    border-bottom: 4px solid #f05223;
+    padding-bottom: 5px;
+}
+.activeAuthLink {
+    background-color: #f05223;
+    font-weight: 800;
+    border: 4px solid #f05223;
+    color: white;
+}

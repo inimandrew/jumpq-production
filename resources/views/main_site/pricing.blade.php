@@ -121,9 +121,6 @@
             margin: 0 0 30px 0;
         }
     }
-
-    @charset "utf-8";
-    /* CSS Document */
 </style>
 
 

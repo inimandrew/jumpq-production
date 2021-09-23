@@ -10,14 +10,24 @@
 |
 */
 
-Route::get('/', 'PageController@index')->name('landing_page');
+// Route::get('/', 'PageController@index')->name('new-landing');
+Route::get('/', 'PageController@landing')->name('new-landing');
+Route::get('contact', 'PageController@contact')->name('contact');
+Route::get('privacy-policy', 'PageController@privacyPage')->name('privacy-page');
+Route::get('plans', 'PageController@plans')->name('plans');
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('login', 'PageController@authLogin')->name('sign_in');
+    Route::get('register', 'PageController@authRegister')->name('sign_up');
+});
+
 Route::get('about-us', 'PageController@aboutUs')->name('about_us');
 Route::get('contact-us', 'PageController@contactUs')->name('contact_us');
-Route::get('sign_up', 'PageController@register')->name('sign_up');
-Route::get('sign_in', 'PageController@login')->name('sign_in');
+// Route::get('sign_up', 'PageController@register')->name('sign_up');
+// Route::get('sign_in', 'PageController@login')->name('sign_in');
 Route::get('privacy', 'PageController@privacy')->name('privacy');
-Route::get('products/{branch_id}', 'PageController@products')->name('branch_product_main');
-Route::get('product/{product_id}', 'PageController@product')->name('single_product');
+// Route::get('products/{branch_id}', 'PageController@products')->name('branch_product_main');
+// Route::get('product/{product_id}', 'PageController@product')->name('single_product');
 Route::get('payment/{transaction_id}', 'PageController@pay')->name('payments');
 Route::post('verify_transaction', 'LoadController@verifyFlutterWave');
 Route::post('verify_paystack', 'LoadController@verifyPaystack');
@@ -25,20 +35,28 @@ Route::get('payment_successful/{transaction_id}', 'PageController@successPayment
 Route::get('activate', 'PageController@activateUser')->name('users_activation');
 Route::get('forgot_password', 'PageController@forgotPassword')->name('forgot_password');
 Route::get('change_password/{id}', 'LoadController@changePassword')->name('password_change');
-Route::get('advert-placement', 'PageController@advert')->name('advert-placement');
-Route::get('ads/pricing', 'PageController@pricing')->name('advert-pricing');
-Route::post('register-account', 'LoadController@createAccount')->name('advert-registration');
-Route::post('login-account', 'LoadController@authenticate')->name('advert-login');
 Route::get('assets_allowed/{plan}', 'LoadController@getAllowed');
-Route::get('asset/{campaign_id}','LoadController@getFile')->name('download_asset');
+Route::get('asset/{campaign_id}', 'LoadController@getFile')->name('download_asset');
 
-Route::group(['prefix' => 'ads', 'middleware' => 'ads'], function () {
-    Route::get('/', 'PageController@adsHome')->name('ads-home');
-    Route::get('logout', 'LoadController@logout')->name('ads-logout');
-    Route::get('profile', 'PageController@profile')->name('ads-profile');
-    Route::post('update-profile', 'LoadController@updateProfile')->name('update-ads-profile');
-    Route::get('create-campaign', 'PageController@createCampaign')->name('create-ads-campaign');
-    Route::post('create-campaign', 'LoadController@createCampaign')->name('create-ads-campaign-action');
+Route::group(['prefix' => 'ads'], function () {
+    Route::get('/', 'PageController@advert')->name('advert-placement');
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::get('/', 'PageController@advertLogin')->name('advert-login');
+        Route::get('register', 'PageController@advertRegistration')->name('advert-registration');
+        Route::post('register-account', 'LoadController@createAccount')->name('advert-registration-action');
+        Route::post('login-account', 'LoadController@authenticate')->name('advert-login-action');
+    });
+    Route::get('pricing', 'PageController@pricing')->name('advert-pricing');
+
+    Route::group(['middleware' => 'ads'], function () {
+        Route::get('home', 'PageController@adsHome')->name('ads-home');
+        Route::get('logout', 'LoadController@logout')->name('ads-logout');
+        Route::get('profile', 'PageController@profile')->name('ads-profile');
+        Route::post('update-profile', 'LoadController@updateProfile')->name('update-ads-profile');
+        Route::get('create-campaign', 'PageController@createCampaign')->name('create-ads-campaign');
+        Route::post('create-campaign', 'LoadController@createCampaign')->name('create-ads-campaign-action');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Administrator'], function () {
@@ -103,9 +121,11 @@ Route::group(['prefix' => 'staff', 'namespace' => 'Staff'], function () {
 
 Route::group(['prefix' => 'user', 'namespace' => 'User', 'middleware' => 'user_pages'], function () {
     Route::get('dashboard', 'PageController@home')->name('user_home');
+    Route::get('home', 'PageController@homePage')->name('user_home_page');
     Route::get('profile', 'PageController@profile')->name('user_profile');
     Route::get('cart', 'PageController@checkOut')->name('cart');
     Route::get('transactions', 'PageController@transactions')->name('transactions');
+    Route::get('logout', 'PageController@logout')->name('auth-logout');
 });
 
 Route::group(['prefix' => 'api'], function () {

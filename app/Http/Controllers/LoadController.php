@@ -57,7 +57,7 @@ class LoadController extends Controller
             $user = User::find($decrypted);
             if ($user) {
                 $title = 'Password Change';
-                return view('main_site.password_change', ['user_id' => $user->id, 'title' => $title]);
+                return view('landing.auth.change-password', ['user_id' => $user->id, 'title' => $title]);
             } else {
                 return redirect()->route('landing_page');
             }
@@ -120,7 +120,7 @@ class LoadController extends Controller
     {
         Auth::guard('ads')->logout();
         Session::put('green', 1);
-        return redirect()->route('advert-placement')->withErrors(['password' => 'Logged Out']);
+        return redirect()->route('advert-login')->withErrors(['password' => 'Logged Out']);
     }
 
     public function updateProfile(Request $request)
