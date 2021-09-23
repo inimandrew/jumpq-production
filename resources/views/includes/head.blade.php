@@ -19,20 +19,18 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{url('assets/administrator/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Menu CSS -->
-    <link href="{{url('assets/administrator/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}"
-        rel="stylesheet">
+    <link href="{{url('assets/administrator/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
     <!-- animation CSS -->
     <link href="{{url('assets/administrator/css/animate.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{url('assets/administrator/css/style.css')}}" rel="stylesheet">
-    <link href="{{url('assets/administrator/plugins/bower_components/chartist-js/dist/chartist.min.css')}}"
-        rel="stylesheet">
-    <link
-        href="{{url('assets/administrator/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css')}}"
-        rel="stylesheet">
+    <link href="{{url('assets/administrator/plugins/bower_components/chartist-js/dist/chartist.min.css')}}" rel="stylesheet">
+    <link href="{{url('assets/administrator/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{{url('assets/administrator/css/colors/default.css')}}" id="theme" rel="stylesheet">
     <link href="{{url('assets/general_assets/utility.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
     <style>
         .show {
             display: inline;
@@ -46,7 +44,7 @@
             animation: blinkingBackground 2s infinite;
         }
 
-        .good-blink{
+        .good-blink {
             animation: goodBlink 2s infinite;
         }
 

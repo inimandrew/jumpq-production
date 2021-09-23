@@ -183,7 +183,7 @@ class PageController extends Controller
         $title = 'Ads';
         $data['paystack'] = Configurations::where('type', 'paystack_public_key')->first();
         $data['flutter'] = Configurations::where('type', 'flutterwave_public_key')->first();
-        return view('ads.dashboard', ['title' => $title, 'data' => $data]);
+        return view('landing.ads.dashboard', ['title' => $title, 'data' => $data]);
     }
 
     public function profile(Request $request)

@@ -98,10 +98,8 @@ class LoadController extends Controller
 
     public function logout(Request $request)
     {
-        $api_token = $request->header('api_token');
-        $this->admin->logout($api_token);
         Auth::guard('admin')->logout();
-        return response()->json(['message' => ['Logout Successful']]);
+        return redirect()->route('admin_login');
     }
 
     public function updateProfile(Request $request)

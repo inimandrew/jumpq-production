@@ -4,26 +4,26 @@
 
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
         </svg>
     </div>
 
     <div id="wrapper">
 
-    @include($pages['navbar'])
+        @include($pages['navbar'])
 
         @include($pages['sidebar'])
 
-        <div id="page-wrapper">
+        <div id="page-wrapper" class=" bg-app-transparent2">
             <div class="container-fluid">
                 <div class="row bg-title">
 
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 pull-right">
 
                         <ol class="breadcrumb">
-                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#" style="color: black;">Dashboard</a></li>
                             @if ($title != 'Dashboard')
-                            <li class="active">{{$title}}</li>
+                            <li class="color-app font-bold">{{$title}}</li>
                             @endif
 
                         </ol>
@@ -36,7 +36,7 @@
 
             </div>
             <!-- /.container-fluid -->
-        @include($pages['footer'])
+            @include($pages['footer'])
 
         </div>
 

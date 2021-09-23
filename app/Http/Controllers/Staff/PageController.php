@@ -81,7 +81,7 @@ class PageController extends Controller
         if (Auth::guard('staff')->check() && !empty(Auth::guard('staff')->user()->api_token)) {
             return redirect()->route('staff_home');
         } else {
-            return view('staff_login');
+            return view('landing.staff.login', ['title' => 'Staff Login']);
         }
     }
 
@@ -150,11 +150,12 @@ class PageController extends Controller
         $title = 'New Product';
         return $this->templatePages('staff.new_products', $title);
     }
-    
-    public function deleteProducts(Request $request){
+
+    public function deleteProducts(Request $request)
+    {
         $branch = Auth::guard('staff')->user()->store_branch_id;
         $this->product->deleteProductsByBranch($branch);
-        Session::put('green',1);
+        Session::put('green', 1);
         return redirect()->back()->withErrors(['message' => 'Products Deleted']);
     }
 
@@ -177,13 +178,13 @@ class PageController extends Controller
         return $this->templatePages('staff.allocation', $title);
     }
 
-    public function salesRecords(Request $request)
-    {
-        $title = 'Sales Records';
-        $branch = $this->staff->getBranchId(Auth::guard('staff')->user()->api_token);
-        $data['buyers'] = $this->other->getSalesRecords($branch);
-        return $this->templatePages('staff.sales_records', $title, $data);
-    }
+    // public function salesRecords(Request $request)
+    // {
+    //     $title = 'Sales Records';
+    //     $branch = $this->staff->getBranchId(Auth::guard('staff')->user()->api_token);
+    //     $data['buyers'] = $this->other->getSalesRecordsAll($branch);
+    //     return $this->templatePages('staff.sales_records', $title, $data);
+    // }
 
     public function checkIn(Request $request)
     {

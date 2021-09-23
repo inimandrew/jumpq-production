@@ -145,10 +145,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['namespace' => 'Administrator', 'prefix' => 'admin'], function () {
         Route::post('register', 'LoadController@register');
         Route::post('login', 'LoadController@authenticate');
+        Route::get('logout', 'LoadController@logout')->name('admin-logout');
+
 
         Route::group(['middleware' => 'admin_api'], function () {
             Route::post('update_profile', 'LoadController@updateProfile');
-            Route::get('logout', 'LoadController@logout');
             Route::get('admins', "LoadController@getAdmins");
             Route::post('change_status', 'LoadController@changeStatus');
             Route::post('store/register', 'LoadController@createStore');

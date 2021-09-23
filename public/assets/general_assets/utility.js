@@ -17,8 +17,8 @@ function displayErrors(data, css_class, useScroll = true) {
 
     $("#message")
         .fadeIn(500)
-        .delay(6000)
-        .fadeOut(2000, function () {
+        .delay(2000)
+        .fadeOut(500, function () {
             $("#message").css("display", "none");
         });
 }

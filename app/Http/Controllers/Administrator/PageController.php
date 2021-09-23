@@ -43,7 +43,7 @@ class PageController extends Controller
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->api_token) {
             return redirect()->route('admin_home');
         } else {
-            return view('admin.login');
+            return view('landing.admin.login', ['title' => 'Admin Login']);
         }
     }
 

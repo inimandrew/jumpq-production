@@ -7,12 +7,12 @@
             <div class="mx-auto mb-4 w-4/5">
                 <div class="text-center space-y-2 mb-4">
                     <div href="{{route('new-landing')}}" class="w-20 h-20 py-6 px-4 mx-auto"><img src="{{asset('assets/jump/imgs/jumpq-logo.png')}}" alt="logo" class="object-center object-cover w-full"></div>
-                    <p class=" tracking-widest color-app font-medium text-lg">Login</p>
+                    <p class=" tracking-widest color-app font-medium text-lg">Admin Login</p>
                 </div>
                 <div id="message" class="space-y-2 my-2">
 
                 </div>
-                <form class="space-y-4" autocomplete="off" method="POST" id="login-user">
+                <form class="space-y-4" autocomplete="off" method="POST" id="loginform">
                     <div class="relative w-full">
                         <input type="text" name="username" class="pl-10 py-4 rounded-lg border border-gray-400 w-full placeholder-gray-600 focus:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent" placeholder="Username" />
                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 h-4 text-black absolute top-5 left-3 font-bold" viewBox="0 0 512 512">
@@ -27,11 +27,8 @@
                         </svg>
                     </div>
 
-                    <a href="{{route('forgot_password')}}" class="float-right text-sm color-app underline">Forgot Password?</a>
-
                     <button id="submit" type="submit" class="text-white bg-app py-3 rounded-lg w-full">Login</button>
 
-                    <p class=" text-lg font-medium text-center">Don't have an Account? <a href="{{route('sign_up')}}" class="color-app underline">Signup</a>
 
                     </p>
                 </form>
@@ -39,8 +36,8 @@
         </div>
 
         <div class="hidden md:block overflow-hidden md:rounded-r-3xl relative">
-
-            <img class="object-center object-cover w-full h-full" src="{{asset('assets/jump/imgs/freedom.png')}}" />
+            <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-20"></div>
+            <img class="object-center object-cover w-full h-full" src="{{asset('assets/jump/imgs/218.jpg')}}" />
         </div>
 
     </div>
@@ -48,6 +45,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{asset('assets/users/js/login.js')}}"></script>
-
+<script src="{{url('assets/administrator/js/login.js')}}"></script>
 @endsection
