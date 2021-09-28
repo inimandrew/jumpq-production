@@ -17,9 +17,9 @@ class Products extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('store_branch_id')->unsigned();
             $table->foreign('store_branch_id')->references('id')->on('stores_branches')->onDelete('cascade');
-            $table->bigInteger('category_id')->unsigned()>nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->enum('product_type',['0','1'])->default('0');
+            $table->enum('product_type', ['0', '1'])->default('0');
             $table->string('name');
             $table->string('uniqueId');
             $table->text('description');
