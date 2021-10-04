@@ -66,7 +66,10 @@ class PageController extends Controller
 
     public function downloadApp(Request $request)
     {
-        return response()->download(public_path() . '/assets/jumpq.apk');
+        return response()->download(public_path() . '/assets/jumpq.apk', [
+            'Content-Type' => 'application/vnd.android.package-archive',
+            'Content-Disposition' => 'attachment; filename="jumpq.apk"',
+        ]);
     }
 
     public function privacy(Request $request)
