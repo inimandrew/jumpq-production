@@ -10,7 +10,6 @@
 |
 */
 
-// Route::get('/', 'PageController@index')->name('new-landing');
 Route::get('/', 'PageController@landing')->name('new-landing');
 Route::get('contact', 'PageController@contact')->name('contact');
 Route::get('privacy-policy', 'PageController@privacyPage')->name('privacy-page');
@@ -21,13 +20,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('register', 'PageController@authRegister')->name('sign_up');
 });
 
-Route::get('about-us', 'PageController@aboutUs')->name('about_us');
+Route::get('download-app', 'PageController@AppDownload')->name('download');
+Route::get('download-action', 'PageController@downloadApp')->name('download-action');
 Route::get('contact-us', 'PageController@contactUs')->name('contact_us');
-// Route::get('sign_up', 'PageController@register')->name('sign_up');
-// Route::get('sign_in', 'PageController@login')->name('sign_in');
 Route::get('privacy', 'PageController@privacy')->name('privacy');
-// Route::get('products/{branch_id}', 'PageController@products')->name('branch_product_main');
-// Route::get('product/{product_id}', 'PageController@product')->name('single_product');
 Route::get('payment/{transaction_id}', 'PageController@pay')->name('payments');
 Route::post('verify_transaction', 'LoadController@verifyFlutterWave');
 Route::post('verify_paystack', 'LoadController@verifyPaystack');
@@ -39,15 +35,12 @@ Route::get('assets_allowed/{plan}', 'LoadController@getAllowed');
 Route::get('asset/{campaign_id}', 'LoadController@getFile')->name('download_asset');
 
 Route::group(['prefix' => 'ads'], function () {
-    Route::get('/', 'PageController@advert')->name('advert-placement');
-
     Route::group(['prefix' => 'auth'], function () {
         Route::get('/', 'PageController@advertLogin')->name('advert-login');
         Route::get('register', 'PageController@advertRegistration')->name('advert-registration');
         Route::post('register-account', 'LoadController@createAccount')->name('advert-registration-action');
         Route::post('login-account', 'LoadController@authenticate')->name('advert-login-action');
     });
-    Route::get('pricing', 'PageController@pricing')->name('advert-pricing');
 
     Route::group(['middleware' => 'ads'], function () {
         Route::get('home', 'PageController@adsHome')->name('ads-home');

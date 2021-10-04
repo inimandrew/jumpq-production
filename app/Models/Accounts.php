@@ -10,7 +10,7 @@ class Accounts extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['company_name', 'email', 'phone', 'address', 'website_url', 'password','cac_number','status'];
+    protected $fillable = ['company_name', 'email', 'phone', 'address', 'website_url', 'password', 'cac_number', 'status'];
 
     public function setCompanyNameAttribute($value)
     {
@@ -22,7 +22,8 @@ class Accounts extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function campaign(){
-        return $this->hasMany(Campaigns::class,'account_id','id');
+    public function campaign()
+    {
+        return $this->hasMany(Campaigns::class, 'account_id', 'id');
     }
 }

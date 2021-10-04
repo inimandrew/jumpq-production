@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
+use App\Models\Campaigns;
 use App\Models\Cart_Payment;
 use App\Models\Configurations;
 use App\Models\PaymentType;
@@ -37,7 +39,7 @@ class PageController extends Controller
 
     public function plans(Request $request)
     {
-        $plans = Plans::where('status', '1')->get();
+        $plans = Plans::with('assets_allowed')->where('status', '1')->get();
         return view('landing.plans', ['title' => 'Plans', 'plans' => $plans]);
     }
 
@@ -56,10 +58,15 @@ class PageController extends Controller
         return view('landing.privacy', ['title' => 'Privacy']);
     }
 
-    public function aboutUs(Request $request)
+    public function AppDownload(Request $request)
     {
-        $title = "About Us";
-        return view('main_site.about', ['title' => $title]);
+        $title = "Download App";
+        return view('landing.download', ['title' => $title]);
+    }
+
+    public function downloadApp(Request $request)
+    {
+        return response()->download(public_path() . '/assets/jumpq.apk');
     }
 
     public function privacy(Request $request)
@@ -183,7 +190,8 @@ class PageController extends Controller
         $title = 'Ads';
         $data['paystack'] = Configurations::where('type', 'paystack_public_key')->first();
         $data['flutter'] = Configurations::where('type', 'flutterwave_public_key')->first();
-        return view('landing.ads.dashboard', ['title' => $title, 'data' => $data]);
+        $campaigns = Campaigns::where('id', $request->user('ads')->id)->with(['payment', 'account'])->get();
+        return view('landing.ads.dashboard', ['title' => $title, 'data' => $data, 'campaigns' => $campaigns]);
     }
 
     public function profile(Request $request)

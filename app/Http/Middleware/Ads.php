@@ -19,7 +19,7 @@ class Ads
     {
         if (!Auth::guard('ads')->check()) {
             Session::put('red', 1);
-            return redirect()->route('advert-placement')->withErrors(['message' => 'Unauthorised! Please Login']);
+            return redirect()->route('advert-login')->withErrors(['message' => 'Unauthorised! Please Login']);
         }
         return $next($request);
     }
