@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-full">
-    <div class="mx-auto w-10/12 md:w-3/5 grid grid-cols-1 md:grid-cols-2 mt-12">
+    <div class="mx-auto w-10/12 md:w-3/5 grid grid-cols-1 md:grid-cols-2 my-10">
         <div class="w-full relative hidden md:block">
             <img src="{{asset('assets/jump/imgs/hands-on-phone.png')}}" class="object-center object-cover z-10" />
         </div>
