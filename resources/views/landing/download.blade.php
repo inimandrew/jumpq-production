@@ -14,9 +14,9 @@
                     Download the app to get started
                 </p>
 
-                <div class=" w-full  md:w-2/5">
+                <div class="mx-auto md:mx-0 w-2/3 md:w-1/2">
                     <a href="{{route('download-action')}}"
-                        class="px-4 py-3 flex items-center justify-between border border-app font-semibold text-sm color-app md:text-lg rounded-xl bg-white">
+                        class="px-2 w-auto py-3 flex items-center space-x-2 border border-app font-semibold text-sm color-app md:text-lg rounded-xl bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class=" fill-current w-6 h-6 animate animate-bounce"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
