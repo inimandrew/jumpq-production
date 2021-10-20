@@ -449,8 +449,8 @@ class LoadController extends Controller
     {
         $data = $request->all();
         $rules = [
-            'products.*.price' => 'required|min:1|numeric|gte:cost_price',
-            'products.*.cost_price' => 'required|numeric|lte:price',
+            'products.*.price' => 'required|min:1|numeric',
+            'products.*.cost_price' => 'required|numeric',
             'products.*.quantity' => 'required|numeric',
             'products.*.id' => 'required|exists:products,id',
             'products.*.reorder' => 'required'
