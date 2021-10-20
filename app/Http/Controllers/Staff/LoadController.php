@@ -318,8 +318,8 @@ class LoadController extends Controller
         $branch = $this->staff->getBranchId($request->header('api_token'));
         $rules = [
             'name' => ['required', 'string', new ProductBranch($this->staff, $request)],
-            'price' => 'required|min:1|numeric|gte:cost_price',
-            'cost_price' => ['required', 'numeric', 'min:1', 'lte:price'],
+            'price' => 'required|min:1|numeric',
+            'cost_price' => ['required', 'numeric', 'min:1'],
             'product_type' => 'required|numeric|min:0|max:1',
             'category_id' => 'required|exists:categories,id',
             'barcode' => ['required', 'string'],
