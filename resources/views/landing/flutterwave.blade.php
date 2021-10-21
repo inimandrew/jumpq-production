@@ -19,11 +19,16 @@
                     <label for="firstName">Email Address: <span class=" color-app">{{$transaction->payer->email}}</span></label>
                     <input type="hidden" id="email" class="form-control" disabled value="{{$transaction->payer->email}}">
                 </div>
+                 <div class="px-2 py-2 font-medium tracking-wide">
+                    <label for="firstName">Phone: <span class=" color-app">{{$transaction->payer->phone}}</span></label>
+                    <input type="hidden" id="phone" class="form-control" disabled value="{{$transaction->payer->phone}}">
+                </div>
                 <div class="px-2 py-2 font-medium tracking-wide">
                     <label for="firstName">Amount:
                         <span class=" color-app">{{$transaction->branch->currency->symbol}} {{number_format(($transaction->total + $transaction->service_charge),2)}}</span></label>
                     <input type="hidden" id="amount" class="form-control" disabled value="{{$transaction->total + $transaction->service_charge}}">
                 </div>
+                
                 <input type="hidden" id="reference" value="{{$transaction->transaction_id}}">
                 <input type="hidden" id="key" value="{{$public_key}}">
                 <input type="hidden" id="sub_account" value="{{$sub_account}}">
