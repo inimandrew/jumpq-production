@@ -9,30 +9,33 @@ function makePayment() {
         customer: {
             email: document.getElementById("email").value,
             phone_number: document.getElementById("phone").value,
-            name: document.getElementById("firstname").value + ' ' + document.getElementById("lastname").value,
+            name:
+                document.getElementById("firstname").value +
+                " " +
+                document.getElementById("lastname").value,
         },
         subaccounts: [
             {
-              id: document.getElementById("sub_account").value,
-              transaction_charge_type: 'flat_subaccount',
-              transaction_charge: parseFloat(document.getElementById("total").value),
+                id: document.getElementById("sub_account").value,
+                transaction_charge_type: "flat_subaccount",
+                transaction_charge: parseFloat(
+                    document.getElementById("flat_fee").value
+                ),
             },
-          ],
+        ],
         callback: function (data) {
-            $('#submit').addClass('hide');
+            $("#submit").addClass("hide");
             var fail_errors = {
-                'errors': [
-                    "You will be Redirected for Verification soon"
-                ]
+                errors: ["You will be Redirected for Verification soon"],
             };
-            displayErrors(fail_errors, 'alert alert-success');
+            displayErrors(fail_errors, "alert alert-success");
             setInterval(function () {
-                window.location = "https://www.myjumpq.net/payment_successful/" + document.getElementById("reference").value;
+                window.location =
+                    "https://www.myjumpq.net/payment_successful/" +
+                    document.getElementById("reference").value;
             }, 3000);
         },
-        onclose: function () {
-
-        },
+        onclose: function () {},
         customizations: {
             title: "My store",
             description: "Payment for items in cart",
