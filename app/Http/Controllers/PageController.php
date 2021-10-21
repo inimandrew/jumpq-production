@@ -119,12 +119,12 @@ class PageController extends Controller
                 return redirect()->route('successful_payment', [$transaction_id]);
             } else {
                 if ($transaction->payment_type_id == '3') {
-                    $sub_account = SubAccounts::where('payment_type_id', '3')->where('store_branch_id', $transaction->store_branch_id)->with('payer')->first();
+                    $sub_account = SubAccounts::where('payment_type_id', '3')->where('store_branch_id', $transaction->store_branch_id)->first();
                     $main_sub_account = $sub_account->sub_account_code;
                     $public_key = Configurations::where('type', 'paystack_public_key')->first();
                     return view('landing.paystack', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
                 } else if ($transaction->payment_type_id == '4') {
-                    $sub_account = SubAccounts::where('payment_type_id', '4')->where('store_branch_id', $transaction->store_branch_id)->with('payer')->first();
+                    $sub_account = SubAccounts::where('payment_type_id', '4')->where('store_branch_id', $transaction->store_branch_id)->first();
                     $main_sub_account = $sub_account->sub_account_code;
                     $public_key = Configurations::where('type', 'flutterwave_public_key')->first();
                     return view('landing.flutterwave', ['title' => $title, 'transaction' => $transaction, 'public_key' => $public_key->value, 'sub_account' => $main_sub_account]);
